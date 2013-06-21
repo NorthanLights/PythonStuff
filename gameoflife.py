@@ -1,3 +1,5 @@
+# Works on Windows platform only.
+
 from copy import deepcopy
 from time import sleep
 from os import system
