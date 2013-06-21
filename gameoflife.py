@@ -58,11 +58,3 @@ def gameoflife(random=False, freq=3, coords=_dftcoords, sleepsecs=0.05):
         next_grid(grid)
     
 gameoflife(True)
-
-
-    
-
-
-
-
-
