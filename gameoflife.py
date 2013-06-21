@@ -33,7 +33,7 @@ def neighbors_num(grid, coord):
     count = 0
     for direction in move:
         x, y = move[direction](*coord)
-        if 0 <= x < ROW and 0 <= y < COL and grid[x][y] == 2:
+        if grid[x%ROW][y%COL] == 2:
             count += 1
     return count
         
@@ -48,14 +48,14 @@ def next_grid(grid):
                 new_grid[i][j] = 0
     grid[:] = new_grid
 
-def gameoflife(random=False, freq=3, coords=_dftcoords, sleepsecs=0.1):
+def gameoflife(random=False, freq=3, coords=_dftcoords, sleepsecs=0.05):
     grid = random_grid(freq) if random \
                         else new_grid(coords)
     while True:
-        next_grid(grid)
         system('cls')
         display(grid)
         sleep(sleepsecs)
+        next_grid(grid)
     
 gameoflife(True)
 
