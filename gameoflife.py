@@ -7,6 +7,11 @@ from random import randrange
 
 ROW = 20
 COL = 20
+MOVE = {'U': lambda x, y: (x-1, y), 'D': lambda x, y: (x+1, y),
+        'R': lambda x, y: (x, y+1), 'L': lambda x, y: (x, y-1),
+        'RU': lambda x, y: (x-1, y+1), 'LU': lambda x, y: (x-1, y-1),
+        'RD': lambda x, y: (x+1, y+1), 'LD': lambda x, y: (x+1, y-1)}
+
 _dftcoords = ((1, 0), (2, 1), (2, 2), (1, 2), (0, 2))
 
 def random_grid(freq):
@@ -26,13 +31,9 @@ def display(grid):
         print()
 
 def neighbors_num(grid, coord):
-    move = {'U': lambda x, y: (x-1, y), 'D': lambda x, y: (x+1, y),
-            'R': lambda x, y: (x, y+1), 'L': lambda x, y: (x, y-1),
-            'RU': lambda x, y: (x-1, y+1), 'LU': lambda x, y: (x-1, y-1),
-            'RD': lambda x, y: (x+1, y+1), 'LD': lambda x, y: (x+1, y-1)}       
     count = 0
-    for direction in move:
-        x, y = move[direction](*coord)
+    for direction in MOVE:
+        x, y = MOVE[direction](*coord)
         if grid[x%ROW][y%COL] == 2:
             count += 1
     return count
