@@ -7,10 +7,6 @@ from random import randrange
 
 ROW = 20
 COL = 20
-MOVE = {'U': lambda x, y: (x-1, y), 'D': lambda x, y: (x+1, y),
-        'R': lambda x, y: (x, y+1), 'L': lambda x, y: (x, y-1),
-        'RU': lambda x, y: (x-1, y+1), 'LU': lambda x, y: (x-1, y-1),
-        'RD': lambda x, y: (x+1, y+1), 'LD': lambda x, y: (x+1, y-1)}
 
 _dftcoords = ((1, 0), (2, 1), (2, 2), (1, 2), (0, 2))
 
@@ -30,11 +26,11 @@ def display(grid):
             print(chr(grid[i][j]), end='')
         print()
 
-def neighbors_num(grid, coord):
+def neighbors_num(grid, x, y):
     count = 0
-    for direction in MOVE:
-        x, y = MOVE[direction](*coord)
-        if grid[x%ROW][y%COL] == 2:
+    for i, j in ((x-1, y), (x, y-1), (x+1, y+1), (x-1, y-1), \
+                 (x+1, y), (x, y+1), (x+1, y-1), (x-1, y+1)):
+        if grid[i%ROW][j%COL] == 2:
             count += 1
     return count
         
@@ -42,7 +38,7 @@ def next_grid(grid):
     new_grid = deepcopy(grid)
     for i in range(ROW):
         for j in range(COL):
-            neighbors = neighbors_num(grid, (i, j))
+            neighbors = neighbors_num(grid, i, j)
             if neighbors == 3:
                 new_grid[i][j] = 2
             elif neighbors < 2 or neighbors > 3:
